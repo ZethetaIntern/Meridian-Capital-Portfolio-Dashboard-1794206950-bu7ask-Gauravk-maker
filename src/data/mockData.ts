@@ -1,0 +1,20 @@
+import type { Holding, PortfolioSummary } from '../types/widget';
+export const summary: PortfolioSummary = { aum: 45_000_000_000, dailyPnL: 12_450_000, dailyPnLPercent: 0.28, mtdReturn: 2.84, ytdReturn: 11.62, sharpeRatio: 1.74, lastUpdated: new Date().toISOString() };
+export const holdings: Holding[] = [
+ {ticker:'RELIANCE',name:'Reliance Industries',sector:'Energy',assetClass:'Equity',quantity:125000,price:1284.5,marketValue:160562500,pnl:2.4,weight:8.2},
+ {ticker:'TCS',name:'Tata Consultancy Services',sector:'Technology',assetClass:'Equity',quantity:82000,price:3921,marketValue:321522000,pnl:1.8,weight:7.4},
+ {ticker:'HDFCBANK',name:'HDFC Bank',sector:'Financials',assetClass:'Equity',quantity:210000,price:1765.2,marketValue:370692000,pnl:-0.6,weight:6.8},
+ {ticker:'INFY',name:'Infosys',sector:'Technology',assetClass:'Equity',quantity:155000,price:1842.6,marketValue:285603000,pnl:1.2,weight:5.6},
+ {ticker:'ICICIBANK',name:'ICICI Bank',sector:'Financials',assetClass:'Equity',quantity:190000,price:1324.8,marketValue:251712000,pnl:0.9,weight:5.1},
+ {ticker:'LT',name:'Larsen & Toubro',sector:'Industrials',assetClass:'Equity',quantity:76000,price:3580,marketValue:272080000,pnl:1.5,weight:4.8},
+ {ticker:'GOLDBEES',name:'Nippon India ETF Gold',sector:'Commodities',assetClass:'Alternative',quantity:500000,price:62.4,marketValue:31200000,pnl:0.3,weight:3.2},
+ {ticker:'GSEC2033',name:'Government Security 2033',sector:'Sovereign',assetClass:'Fixed Income',quantity:1000000,price:98.2,marketValue:98200000,pnl:0.12,weight:12.5}
+];
+export const allocation = [{name:'Equities',value:58,color:'#6d8cff'},{name:'Fixed Income',value:24,color:'#35c9a5'},{name:'Alternatives',value:12,color:'#f6b85b'},{name:'Cash',value:6,color:'#9b8afb'}];
+export const performance = (()=>{let portfolio=100,benchmark=100;return Array.from({length:252},(_,i)=>{const shock=i>155&&i<170?-.009:0;portfolio*=1+Math.sin(i*.71)*.003+Math.cos(i*.17)*.0015+.00048+shock;benchmark*=1+Math.sin(i*.63)*.0025+.00034;return {day:`D${i+1}`,portfolio:Number(portfolio.toFixed(3)),benchmark:Number(benchmark.toFixed(3))};});})();
+export const sectors = [{name:'Technology',value:28,change:1.8},{name:'Financials',value:24,change:-.6},{name:'Energy',value:16,change:2.4},{name:'Industrials',value:12,change:1.1},{name:'Healthcare',value:9,change:-1.2},{name:'Consumer',value:7,change:.5},{name:'Other',value:4,change:.2}];
+export const news = [{source:'Reuters',title:'Asian equities advance as technology shares lead gains',time:'8 min ago',sentiment:'Positive',summary:'Regional markets moved higher as investors assessed earnings and the latest macroeconomic signals.'},{source:'Economic Times',title:'RBI maintains policy stance, focuses on inflation outlook',time:'24 min ago',sentiment:'Neutral',summary:'The central bank reiterated its data-dependent approach while monitoring liquidity conditions.'},{source:'Bloomberg',title:'Global bond yields ease after softer economic data',time:'42 min ago',sentiment:'Positive',summary:'Sovereign debt rallied as traders reassessed the path of global interest rates.'}];
+export const alerts = [{id:1,severity:'warning',message:'Technology sector exposure approaching 30% policy limit',time:'09:42:18'},{id:2,severity:'info',message:'Monthly portfolio factsheet is ready for review',time:'09:35:02'},{id:3,severity:'critical',message:'USD/INR volatility alert: 1.2σ move detected',time:'09:21:44'}];
+export const correlations = ['NIFTY','TCS','INFY','HDFC','RELIANCE'].map((name,i)=>({name,values:['NIFTY','TCS','INFY','HDFC','RELIANCE'].map((_,j)=>i===j?1:Math.round((.15+Math.sin((i+1)*(j+2))*.65)*100)/100)}));
+export const attribution = [{name:'Technology',allocation:18,selection:24,interaction:5},{name:'Financials',allocation:12,selection:-8,interaction:3},{name:'Energy',allocation:8,selection:15,interaction:2},{name:'Industrials',allocation:-4,selection:12,interaction:1}];
+export const drawdown = performance.map((p,i)=>({day:p.day,drawdown: i>20 ? -Math.abs(Math.sin(i)*5+2) : -Math.abs(Math.sin(i/4)*2)}));

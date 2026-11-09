@@ -1,0 +1,18 @@
+import type {Meta,StoryObj} from '@storybook/react';
+import {WidgetContent,widgetMeta} from '../widgets/WidgetContent';
+const meta:Meta= {title:'Dashboard/Widget Gallery',parameters:{layout:'fullscreen'}};
+export default meta;
+type Story=StoryObj;
+const renderWidget=(id:string)=>()=> <div style={{background:'#101725',color:'#e8edf6',padding:20,minHeight:320}}><div style={{fontFamily:'sans-serif',fontWeight:700,marginBottom:16}}>{widgetMeta[id].title} · {widgetMeta[id].subtitle}</div><WidgetContent id={id}/></div>;
+export const Allocation:Story={render:renderWidget('allocation')};
+export const Performance:Story={render:renderWidget('performance')};
+export const SectorHeatmap:Story={render:renderWidget('heatmap')};
+export const Holdings:Story={render:renderWidget('holdings')};
+export const News:Story={render:renderWidget('news')};
+export const Alerts:Story={render:renderWidget('alerts')};
+export const ValueAtRisk:Story={render:renderWidget('var')};
+export const Correlation:Story={render:renderWidget('correlation')};
+export const Attribution:Story={render:renderWidget('attribution')};
+export const MarketTicker:Story={render:renderWidget('ticker')};
+export const Drawdown:Story={render:renderWidget('drawdown')};
+export const ExposureTreemap:Story={render:renderWidget('treemap')};

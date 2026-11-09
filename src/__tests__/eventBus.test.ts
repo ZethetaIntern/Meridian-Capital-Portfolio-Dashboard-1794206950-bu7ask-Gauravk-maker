@@ -1,0 +1,2 @@
+import {describe,it,expect,beforeEach,vi} from 'vitest';import {eventBus} from '../data/eventBus';
+describe('typed event bus',()=>{beforeEach(()=>eventBus.clear());it('publishes events to subscribers',()=>{const fn=vi.fn();eventBus.on('SYMBOL_SELECTED',fn);eventBus.emit('SYMBOL_SELECTED',{symbol:'TCS'});expect(fn).toHaveBeenCalledWith({symbol:'TCS'});});it('supports unsubscribe',()=>{const fn=vi.fn();const off=eventBus.on('DATE_RANGE_CHANGED',fn);off();eventBus.emit('DATE_RANGE_CHANGED',{range:'1M'});expect(fn).not.toHaveBeenCalled();});});
